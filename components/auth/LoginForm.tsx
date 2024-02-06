@@ -14,8 +14,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useState, useTransition } from "react";
+import { FormError } from "../FormError";
+import { FormSuccess } from "../FormSucces";
 
 const LoginForm = () => {
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+  const [isPending, startTransition] = useTransition();
   // Form object
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -58,6 +64,8 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
+        <FormError message={error} />
+        <FormSuccess message={success} />
         <Button type="submit" className="w-full">
           Login
         </Button>

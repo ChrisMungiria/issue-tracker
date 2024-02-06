@@ -14,8 +14,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useState, useTransition } from "react";
+import { FormError } from "../FormError";
+import { FormSuccess } from "../FormSucces";
+import { register } from "@/actions/register";
 
 const RegisterForm = () => {
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+  const [isPending, startTransition] = useTransition();
   // Form object
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -28,8 +35,16 @@ const RegisterForm = () => {
 
   // Form submit handler
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    console.log(values);
+    setError("");
+    setSuccess("");
+    startTransition(() => {
+      register(values).then((data) => {
+        setError(data.error);
+        setSuccess(data.success);
+      });
+    });
   };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -72,6 +87,8 @@ const RegisterForm = () => {
             </FormItem>
           )}
         />
+        <FormError message={error} />
+        <FormSuccess message={success} />
         <Button type="submit" className="w-full">
           Register
         </Button>
