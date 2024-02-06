@@ -17,6 +17,7 @@ import Link from "next/link";
 import { useState, useTransition } from "react";
 import { FormError } from "../FormError";
 import { FormSuccess } from "../FormSucces";
+import { login } from "@/actions/login";
 
 const LoginForm = () => {
   const [error, setError] = useState<string | undefined>("");
@@ -33,7 +34,14 @@ const LoginForm = () => {
 
   // Form submit handler
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    console.log(values);
+    setError("");
+    setSuccess("");
+    startTransition(() => {
+      login(values).then((data) => {
+        setError(data.error);
+        setSuccess(data.success);
+      });
+    });
   };
   return (
     <Form {...form}>
