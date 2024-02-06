@@ -6,3 +6,5 @@
 4. Change the provider in the `schema.prisma` file to your database provider
 5. Run `npx prisma generate` to generate the prisma client
 6. Run `npx prisma db push` to create the tables in the database
+
+- To reset the entire database, run `npx prisma migrate reset` then run `npx prisma db push` to create the tables again
