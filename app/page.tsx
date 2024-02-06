@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <section className="w-screen h-screen">
-      <nav className="p-4 flex items-center justify-between">
+      <nav className="p-4 flex items-center justify-between border-b border-slate-300">
         <h1 className="text-2xl font-bold">Logo</h1>
         <div className="flex gap-4">
           <Link href="/auth/login">
