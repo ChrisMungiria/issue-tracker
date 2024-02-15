@@ -7,9 +7,11 @@ const DashboardLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <section className="w-screen h-screen bg-red-500 flex">
-      <SideNav />
-      <div className="w-full h-full bg-blue-500">{children}</div>
+    <section className="w-screen h-screen flex">
+      <div className="flex-1">
+        <SideNav />
+      </div>
+      <div className="flex-[3] h-full bg-blue-500">{children}</div>
     </section>
   );
 };
