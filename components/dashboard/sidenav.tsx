@@ -1,23 +1,11 @@
 import { auth, signOut } from "@/auth";
 import LinkItem from "./linkitem";
-
-const links = [
-  {
-    name: "Dashboard",
-    href: "/dashboard",
-    icon: "home",
-  },
-  {
-    name: "Issues",
-    href: "/dashboard/issues",
-    icon: "user",
-  },
-];
+import { links } from "@/data/constants";
 
 const SideNav = async () => {
   const name = await auth().then((session) => session?.user.name);
   return (
-    <div className="h-full p-4 flex flex-col justify-between">
+    <div className="h-full border-r p-4 flex flex-col justify-between">
       <div>
         <h1 className="text-2xl text-slate-800 font-bold">{name}</h1>
         <hr className="w-full my-3" />

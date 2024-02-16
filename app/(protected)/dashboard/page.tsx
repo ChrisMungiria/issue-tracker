@@ -1,20 +1,19 @@
-import { auth, signOut } from "@/auth";
+import CustomCard from "@/components/dashboard/customcard";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 const DashboardPage = async () => {
-  const session = await auth();
-
   return (
     <div>
-      <p>Dashboard Page</p>
-      {JSON.stringify(session)}
-      <form
-        action={async () => {
-          "use server";
-          await signOut();
-        }}
-      >
-        <button type="submit">Sign out</button>
-      </form>
+      <h1 className="text-3xl text-slate-900 font-bold">Dashboard</h1>
+      {/* {JSON.stringify(session)} */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 my-4">
+        {/* Open issues */}
+        <CustomCard />
+        {/* In progress */}
+        <CustomCard />
+        {/* Closed issues */}
+        <CustomCard />
+      </div>
     </div>
   );
 };

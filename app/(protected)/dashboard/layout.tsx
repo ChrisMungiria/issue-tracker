@@ -11,7 +11,7 @@ const DashboardLayout = ({
       <div className="flex-1">
         <SideNav />
       </div>
-      <div className="flex-[3] h-full bg-blue-500">{children}</div>
+      <div className="flex-[3] h-full p-4">{children}</div>
     </section>
   );
 };
