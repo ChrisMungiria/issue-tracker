@@ -5,6 +5,9 @@
  */
 export const publicRoutes = ["/"];
 
+// Uncomment this line to test the API call to add an issue
+// export const publicRoutes = ["/", "/api/issues"];
+
 /**
  * This is an array of routes used for authentication
  * These routes will redirect logged in users to /dashboard

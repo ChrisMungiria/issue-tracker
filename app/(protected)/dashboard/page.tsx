@@ -1,19 +1,27 @@
 import CustomCard from "@/components/dashboard/customcard";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import IssuesTable from "@/components/dashboard/issuestable";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-const DashboardPage = async () => {
+const DashboardPage = () => {
   return (
-    <div>
+    <div className="space-y-4">
       <h1 className="text-3xl text-slate-900 font-bold">Dashboard</h1>
       {/* {JSON.stringify(session)} */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 my-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {/* Open issues */}
-        <CustomCard />
+        <CustomCard title="Open issues" />
         {/* In progress */}
-        <CustomCard />
+        <CustomCard title="In progress" />
         {/* Closed issues */}
-        <CustomCard />
+        <CustomCard title="Closed Issues" />
       </div>
+      {/* Add Issues button */}
+      <Button>
+        <Link href="/dashboard/new-issue">Create an Issue</Link>
+      </Button>
+      {/* Issues Table */}
+      <IssuesTable />
     </div>
   );
 };
