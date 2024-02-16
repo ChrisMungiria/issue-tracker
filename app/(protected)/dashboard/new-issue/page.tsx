@@ -1,16 +1,37 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import React from "react";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+
+interface IssueForm {
+  title: string;
+  description: string;
+}
 
 const NewIssuePage = () => {
+  const router = useRouter();
+  const { register, handleSubmit } = useForm<IssueForm>();
+
   return (
-    <div className="space-y-4 max-w-xl">
+    <form
+      className="space-y-4 max-w-xl"
+      onSubmit={handleSubmit(async (data) => {
+        await axios.post("/api/issues", data);
+        router.push("/dashboard");
+      })}
+    >
       <h1 className="text-3xl text-slate-900 font-bold">Create an Issue</h1>
-      <Input placeholder="Issue title" />
-      <Textarea placeholder="Type your issue description" rows={10} />
+      <Input placeholder="Issue title" {...register("title")} />
+      <Textarea
+        placeholder="Type your issue description"
+        rows={10}
+        {...register("description")}
+      />
       <Button>Create new issue</Button>
-    </div>
+    </form>
   );
 };
 
