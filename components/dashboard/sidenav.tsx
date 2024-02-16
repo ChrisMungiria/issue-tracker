@@ -23,7 +23,7 @@ const SideNav = async () => {
       >
         <button
           type="submit"
-          className="w-full text-white rounded-md p-2 bg-red-400 hover:bg-red-500 transition-all duration-200"
+          className="w-1/2 flex mx-auto items-center justify-center text-white rounded-md p-2 bg-red-400 hover:bg-red-500 transition-all duration-200"
         >
           Sign out
         </button>
