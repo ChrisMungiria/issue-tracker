@@ -13,9 +13,9 @@ export const links = [
 
 export const columns = [
   {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
+    title: "Title",
+    dataIndex: "title",
+    key: "title",
   },
   {
     title: "Status",
