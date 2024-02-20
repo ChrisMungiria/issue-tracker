@@ -1,9 +1,42 @@
-"use client";
-import { getData } from "@/actions/getData";
-import { data, columns } from "@/data/constants";
 import { Table } from "antd";
-import { useEffect, useState } from "react";
 
+const columns = [
+  {
+    title: "Title",
+    dataIndex: "title",
+    key: "title",
+  },
+  {
+    title: "Description",
+    dataIndex: "description",
+    key: "description",
+  },
+  {
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
+    render: (status: string) => {
+      return (
+        <span
+          className={`p-2 ${
+            status === "OPEN"
+              ? "bg-red-200 text-red-600"
+              : status === "IN_PROGRESS"
+              ? "bg-yellow-200 text-yellow-600"
+              : "bg-green-200 text-green-600"
+          } rounded-md`}
+        >
+          {status}
+        </span>
+      );
+    },
+  },
+  {
+    title: "Created At",
+    dataIndex: "createdAt",
+    key: "createdAt",
+  },
+];
 interface Issues {
   id: number;
   title: string;
@@ -14,28 +47,24 @@ interface Issues {
   createdById: string;
 }
 
-const IssuesTable = () => {
-  const [issues, setIssues] = useState<Issues[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log("fetching data...");
-      const data = await getData();
-      // Convert the createdAt to a string
-      const updatedData = data.map((issue) => ({
-        ...issue,
-        // Truncate to show only the date
-        createdAt: issue.createdAt.toISOString().split("T")[0],
-      }));
-      setIssues(updatedData);
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
-
+const IssuesTable = ({
+  issues,
+  loading,
+}: {
+  issues: Issues[];
+  loading: boolean;
+}) => {
   return (
-    <Table dataSource={issues} columns={columns} loading={loading} key="id" />
+    <Table
+      dataSource={issues}
+      columns={columns}
+      loading={loading}
+      key="id"
+      pagination={{
+        pageSize: 5,
+        position: ["bottomCenter"],
+      }}
+    />
   );
 };
 
