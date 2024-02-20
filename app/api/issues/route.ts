@@ -33,3 +33,27 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json(newIssue, { status: 201 });
 }
+
+export async function DELETE(request: NextRequest) {
+  const body = await request.json();
+  const id = body.id;
+
+  if (!id) {
+    return NextResponse.json({ message: "Missing issue id" }, { status: 400 });
+  }
+
+  try {
+    await prisma.issue.delete({
+      where: {
+        id: Number(id),
+      },
+    });
+
+    return NextResponse.json({ message: "Issue deleted successfully" });
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Error deleting issue" },
+      { status: 500 }
+    );
+  }
+}

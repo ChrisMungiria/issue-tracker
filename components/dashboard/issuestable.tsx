@@ -1,4 +1,5 @@
-import { Table } from "antd";
+import { Table, message } from "antd";
+import axios from "axios";
 
 const columns = [
   {
@@ -36,6 +37,42 @@ const columns = [
     dataIndex: "createdAt",
     key: "createdAt",
   },
+  {
+    title: "Delete",
+    dataIndex: "id",
+    key: "id",
+    render: (id: number) => {
+      return (
+        <form
+          onSubmit={async (event) => {
+            event.preventDefault();
+            try {
+              const response = await axios.delete("/api/issues", {
+                data: { id },
+              });
+              if (response.status === 200) {
+                message.success("Issue deleted successfully");
+                setTimeout(() => {
+                  window.location.reload();
+                }, 1000);
+              } else {
+                // Handle error, e.g. show an error message
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          }}
+        >
+          <button
+            type="submit"
+            className="bg-red-500 text-sm text-white p-2 rounded-md"
+          >
+            Delete
+          </button>
+        </form>
+      );
+    },
+  },
 ];
 interface Issues {
   id: number;
@@ -54,6 +91,7 @@ const IssuesTable = ({
   issues: Issues[];
   loading: boolean;
 }) => {
+  const [messageApi, contextHolder] = message.useMessage();
   return (
     <Table
       dataSource={issues}
