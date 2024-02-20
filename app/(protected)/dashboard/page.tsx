@@ -38,11 +38,11 @@ const DashboardPage = () => {
       {/* {JSON.stringify(session)} */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {/* Open issues */}
-        <CustomCard title="Open issues" />
+        <CustomCard title="Open issues" issues={issues} loading={loading} />
         {/* In progress */}
-        <CustomCard title="In progress" />
+        <CustomCard title="In progress" issues={issues} loading={loading} />
         {/* Closed issues */}
-        <CustomCard title="Closed Issues" />
+        <CustomCard title="Closed Issues" issues={issues} loading={loading} />
       </div>
       {/* Add Issues button */}
       <Button>
